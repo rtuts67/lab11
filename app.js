@@ -35,12 +35,7 @@ function getRandomImage(path) {
   document.write(imgStr); document.close();
 };
 getRandomImage(allPictures);
-//function renderFirstPic () {
-  //var parentRenderEl = document.getElementById('img1');
-  //var childRender = allPictures.src[0];
-  //parentRenderEl.appendChild(childRender);
-//}
-//renderFirstPic();
+
 function randomPictures() {
   for (var i = 0; i < 2; i++) {
     randomArray.push(getRandomImage(allPictures));
@@ -48,3 +43,24 @@ function randomPictures() {
 };
 
 randomPictures();
+
+function renderFirstPic () {
+  var parentRenderEl = document.getElementById('img1');
+  var childRender = randomArray[0];
+  parentRenderEl.appendChild(childRender);
+}
+renderFirstPic();
+
+function renderSecondPic () {
+  var parentRenderEl2 = document.getElementById('img2');
+  var childRender2 = randomArray[1];
+  parentRenderEl2.appendChild(childRender2);
+}
+renderSecondPic();
+
+function renderThirdPic () {
+  var parentRenderEl3 = document.getElementById('img3');
+  var childRender3 = randomArray[2];
+  parentRenderEl3.appendChild(childRender3);
+}
+renderThirdPic();
