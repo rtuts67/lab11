@@ -9,7 +9,9 @@ var Randompicture = function(name, path) {
 
 var trackvotes = {
   allPictures: [],
-
+  img1: document.getElementById('img1'),
+  img2: document.getElementById('img2'),
+  img3: document.getElementById('img3'),
   createNewPictures: function() {
     new Randompicture('r2D2', 'images/bag.jpg');
     new Randompicture('banana', 'images/banana.jpg');
@@ -36,7 +38,7 @@ var trackvotes = {
   getRandomNumber: function() {
     return Math.floor(Math.random() * this.allPictures.length);
   },
-  createIndexes: function(array) {
+  createIndex: function(array) {
     var index1 = this.getRandomNumber(array);
     var index2 = this.getRandomNumber(array);
     while (index2 === index1) {
@@ -48,32 +50,23 @@ var trackvotes = {
       index3 = this.getRandomNumber(array);
     };
     return [index1, index2, index3];
-  }
+  },
+
+  renderPics: function () {
+    var index = this.createIndex(this.allPictures);
+    var imageOne = this.allPictures[index[0]];
+    var imageTwo = this.allPictures[index[1]];
+    var imageThree = this.allPictures[index[2]];
+
+    this.img1.src = imageOne.path;
+    this.img2.src = imageTwo.path;
+    this.img3.src = imageThree.path;
+
+    this.img1.id = imageOne.name;
+    this.img2.id = imageTwo.name;
+    this.img3.id = imageThree.name;
+  },
 };
-  //randomPictures: function () {
-    //for (var i = 0; i < 2; i++) {
-      //this.randomArray.push(this.getRandomNumber(this.allPictures[i]));
-    //}
-  //},
-
-  //renderPics: function () {
-    //var parentRenderEl = document.getElementById('img1');
-    //trackvotes.img1.src = trackvotes.path;
-    //var childRender =
-    //parentRenderEl.appendChild(childRender);
-
-    //var parentRenderEl2 = document.getElementById('img2');
-    //this.img2.src = trackvotes.randomArray[1].path;
-  //  var childRender2 = trackvotes.randomArray[1];
-  //  parentRenderEl2.appendChild(childRender2);
-
-  //  var parentRenderEl3 = document.getElementById('img3');
-  //  trackvotes.img3.src = trackvotes.randomArray[3].path;
-  //  var childRender3 = trackvotes.randomArray[3];
-  //  parentRenderEl3.appendChild(childRender3);
-//  },
-//};
 
 trackvotes.createNewPictures();
-//trackvotes.randomPictures();
-//trackvotes.renderPics();
+trackvotes.renderPics();
