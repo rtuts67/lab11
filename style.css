@@ -1,0 +1,26 @@
+header {
+  text-align: center;
+  font-family: sans-serif, 20em, #708090;
+}
+
+#sec1 {
+  padding-top: 100px;
+}
+#img1 {
+  border: black, solid, 3px;
+  float: left;
+  padding-right: 30px;
+}
+
+#img2 {
+  border: black, solid, 3px;
+  float: center;
+  padding-right: 30px;
+  padding-left: 30px,
+}
+
+#img3 {
+  border: black, solid, 3px;
+  float: right;
+  padding-left: 30px;
+}
