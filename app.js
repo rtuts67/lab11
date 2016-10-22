@@ -9,6 +9,7 @@ var Randompicture = function(name, path) {
 
 var trackvotes = {
   allPictures: [],
+  totalVotes: 0,
   img1: document.getElementById('img1'),
   img2: document.getElementById('img2'),
   img3: document.getElementById('img3'),
@@ -74,16 +75,43 @@ var trackvotes = {
     for (var i = 0; i < this.allPictures.length; i++) {
       if (this.allPictures[i].name === id) {
         this.allPictures[i].votes += 1;
+        this.totalVotes ++;
       }
     }
   },
+
+  unorderedList: function() {
+    var displayTheResults = document.getElementById('list');
+    list.style.visibility = 'visible';
+    var parentUl = document.createElement('ul');
+    for (var i = 0; i < trackvotes.allPictures.length; i++) {
+      var childLi = document.createElement('li');
+      console.log(trackvotes.allPictures[i].votes);
+      childLi.textContent = trackvotes.allPictures[i].name + ' got total votes of ' + trackvotes.allPictures[i].votes;
+      parentUl.appendChild(childLi);
+    }
+    displayTheResults.appendChild(parentUl);
+  },
 };
 
-trackvotes.getResults.addEventListener('click', function(event) {
-  if (event.target.id !== 'thing') {
+trackvotes.getResults.addEventListener('click', handleClick);
+
+function handleClick (event) {
+  if (event.target.id !== 'sec1') {
     trackvotes.keepTrackOfVotes(event.target.id);
-    trackvotes.renderPics();
+    if (trackvotes.totalVotes < 15) {
+      trackvotes.renderPics();
+    } else {
+      trackvotes.getResults.removeEventListener('click', handleClick);
+      trackvotes.unorderedList();
+    }
+  } else {
+    console.log('Click the photos!');
   }
-});
+}
+
 trackvotes.createNewPictures();
 trackvotes.renderPics();
+
+
+//trackvotes.getButton.addEventListener ('click', unorderedList(event));
