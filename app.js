@@ -12,6 +12,9 @@ var trackvotes = {
   img1: document.getElementById('img1'),
   img2: document.getElementById('img2'),
   img3: document.getElementById('img3'),
+  getResults: document.getElementById('sec1'),
+  getButton: document.getElementById('results'),
+
   createNewPictures: function() {
     new Randompicture('r2D2', 'images/bag.jpg');
     new Randompicture('banana', 'images/banana.jpg');
@@ -66,7 +69,21 @@ var trackvotes = {
     this.img2.id = imageTwo.name;
     this.img3.id = imageThree.name;
   },
+
+  keepTrackOfVotes: function (id) {
+    for (var i = 0; i < this.allPictures.length; i++) {
+      if (this.allPictures[i].name === id) {
+        this.allPictures[i].votes += 1;
+      }
+    }
+  },
 };
 
+trackvotes.getResults.addEventListener('click', function(event) {
+  if (event.target.id !== 'thing') {
+    trackvotes.keepTrackOfVotes(event.target.id);
+    trackvotes.renderPics();
+  }
+});
 trackvotes.createNewPictures();
 trackvotes.renderPics();
