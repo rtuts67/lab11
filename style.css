@@ -38,10 +38,11 @@ img {
   float: right;
 }
 
-#thing {
+#list {
     padding-top: 25px;
     display: block;
     margin-left: 600px;
+    visibility: hidden;
 
 }
 #results {
