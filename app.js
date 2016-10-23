@@ -10,6 +10,8 @@ var Randompicture = function(name, path) {
 var trackvotes = {
   allPictures: [],
   totalVotes: 0,
+  chartLabels:[],
+  chartVotes:[],
   img1: document.getElementById('img1'),
   img2: document.getElementById('img2'),
   img3: document.getElementById('img3'),
@@ -80,17 +82,64 @@ var trackvotes = {
     }
   },
 
-  unorderedList: function() {
-    var displayTheResults = document.getElementById('list');
-    list.style.visibility = 'visible';
-    var parentUl = document.createElement('ul');
-    for (var i = 0; i < trackvotes.allPictures.length; i++) {
-      var childLi = document.createElement('li');
-      console.log(trackvotes.allPictures[i].votes);
-      childLi.textContent = trackvotes.allPictures[i].name + ' got total votes of ' + trackvotes.allPictures[i].votes;
-      parentUl.appendChild(childLi);
+  //unorderedList: function() {
+    //var displayTheResults = document.getElementById('list');
+    //list.style.visibility = 'visible';
+    //var parentUl = document.createElement('ul');
+    //for (var i = 0; i < trackvotes.allPictures.length; i++) {
+      //var childLi = document.createElement('li');
+      //console.log(trackvotes.allPictures[i].votes);
+      //childLi.textContent = trackvotes.allPictures[i].name + ' got total votes of ' + trackvotes.allPictures[i].votes;
+      //parentUl.appendChild(childLi);
+    //}
+    //displayTheResults.appendChild(parentUl);
+//  },
+  updateMyChart: function() {
+    for (var i = 0; i < this.allPictures.length; i++) {
+      trackvotes.chartLabels.push(trackvotes.allPictures[i].name);
+      trackvotes.chartVotes.push(trackvotes.allPictures[i].votes);
     }
-    displayTheResults.appendChild(parentUl);
+  },
+
+  makeChart: function() {
+    trackvotes.updateMyChart();
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: trackvotes.chartLabels,
+        datasets: [{
+          label: '# of Votes',
+          data: trackvotes.chartVotes,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:true
+            }
+          }]
+        }
+      }
+    });
   },
 };
 
@@ -103,7 +152,8 @@ function handleClick (event) {
       trackvotes.renderPics();
     } else {
       trackvotes.getResults.removeEventListener('click', handleClick);
-      trackvotes.unorderedList();
+      trackvotes.makeChart();
+      //trackvotes.unorderedList();
     }
   } else {
     console.log('Click the photos!');
