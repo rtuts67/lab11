@@ -128,6 +128,13 @@ var trackvotes = {
         }
       }
     });
+    var refreshPage = document.getElementById('results');
+    refreshPage.addEventListener('click', trackvotes.refreshThePage);
+  },
+  refreshThePage: function(event) {
+    if (event.target.id == 'results') {
+      window.location.reload();
+    } else {};
   },
 };
 
