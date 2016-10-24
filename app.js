@@ -1,9 +1,9 @@
 'use strict';
 
-var Randompicture = function(name, path) {
+var Randompicture = function(name, path, votes) {
   this.name = name;
   this.path = path;
-  this.votes = 0;
+  this.votes = votes || 0;
   trackvotes.allPictures.push(this);
 };
 
@@ -94,6 +94,20 @@ var trackvotes = {
     //}
     //displayTheResults.appendChild(parentUl);
 //  },
+
+  findLocalStorage: function() {
+    if (localStorage.allPictures) {
+      var pictures = JSON.parse(localStorage.getItem('allPics'))
+      for (pic of pictures) {
+        new Randompicture(pic.name, pic.path, pic.votes);
+      }
+      trackvotes.renderPics();
+    } else {
+      trackvotes.createNewPictures();
+      trackvotes.renderPics();
+    }
+  },
+
   updateMyChart: function() {
     for (var i = 0; i < this.allPictures.length; i++) {
       trackvotes.chartLabels.push(trackvotes.allPictures[i].name);
@@ -148,15 +162,16 @@ function handleClick (event) {
     } else {
       trackvotes.getResults.removeEventListener('click', handleClick);
       trackvotes.makeChart();
+      localStorage.setItem('allPics',JSON.stringify(trackvotes.allPictures));
       //trackvotes.unorderedList();
     }
   } else {
     console.log('Click the photos!');
   }
 }
-
-trackvotes.createNewPictures();
-trackvotes.renderPics();
+trackvotes.findLocalStorage();
+//trackvotes.createNewPictures();
+//trackvotes.renderPics();
 
 
 //trackvotes.getButton.addEventListener ('click', unorderedList(event));
