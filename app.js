@@ -96,9 +96,9 @@ var trackvotes = {
 //  },
 
   findLocalStorage: function() {
-    if (localStorage.allPictures) {
+    if (localStorage.allPics) {
       var pictures = JSON.parse(localStorage.getItem('allPics'))
-      for (pic of pictures) {
+      for (var pic of pictures) {
         new Randompicture(pic.name, pic.path, pic.votes);
       }
       trackvotes.renderPics();
